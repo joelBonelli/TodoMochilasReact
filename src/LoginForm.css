@@ -1,0 +1,102 @@
+/* Contenedor principal */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 20px;
+  }
+  
+  /* Tarjeta de login */
+  .login-card {
+    background-color: #000000; /* Fondo negro */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    color: #ffffff; /* Texto en blanco */
+  }
+  
+  /* Títulos */
+  .login-card h2 {
+    margin-bottom: 25px;
+    font-size: 2.5rem; /* Título más grande */
+    color: #ffa500; /* Naranja para destacar */
+    font-weight: bold;
+  }
+  
+  /* Grupo de inputs */
+  .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  /* Etiquetas */
+  .input-group label {
+    font-size: 1.2rem; /* Fuente más grande para etiquetas */
+    color: #ffffff; /* Texto en blanco */
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* Inputs */
+  .input-group input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem; /* Inputs con texto más grande */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    border-color: #ffa500; /* Naranja para el enfoque */
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.4);
+  }
+  
+  /* Botón */
+  .login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #ffa500; /* Naranja para el botón */
+    color: #000000; /* Texto en negro */
+    font-size: 1.5rem; /* Botón con texto más grande */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #e08700; /* Naranja más oscuro al pasar el mouse */
+  }
+  
+  /* Link de registro */
+  .signup-link {
+    margin-top: 20px;
+    font-size: 1.2rem; /* Fuente más grande */
+    color: #ffa500; /* Naranja para el link */
+  }
+  
+  .signup-link a {
+    color: #ffa500;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+  
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
