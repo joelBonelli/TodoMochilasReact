@@ -15,10 +15,13 @@ export const AuthProvider = ({ children }) => {
     if (storedUser) {
       setUser(storedUser);
     }
-    if (storedCart) {
+    if (storedCart){
       setCart(storedCart);
-    }
-  }, []);
+  }}, []);
+
+  // useEffect(() => {
+  //   console.log("Usuario Actualizado", user);
+  // },[user]);
 
     // Funcion para iniciar sesion
     const login = async (email, password) => {      
@@ -59,7 +62,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("cart"); 
       setUser(null); // Limpia el estado del usuario
       setCart([]);
-       window.location.href = "/login";
+      //console.log("Logout ejecutado. Usuario:", user);
+      //window.location.href = "/login";
    };
 
    // Funcion para agregar un item al carrito

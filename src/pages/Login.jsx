@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../LoginForm.css"; 
 import Header from "../components/Header";
@@ -14,13 +14,18 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+useEffect(() => {
+  if (user) {
+    navigate("/");
+  }
+}, [user, navigate]);
 
 const handleLogin = async (e) => {
   e.preventDefault();
   try {
     // Llamamos a la función login del contexto, que se encarga de la solicitud
     const data = await login(email, password);
-    console.log(data);
+    console.log("desde logins:", data);
     
     if (data.nivel_usuario === 3) {
       navigate("/admin");

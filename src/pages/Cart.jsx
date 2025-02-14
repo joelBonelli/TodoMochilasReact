@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { AuthContext } from "../context/AuthContext";
 
 const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
 const obtenerImagen = (nombreArchivo) => {
@@ -11,7 +12,16 @@ const obtenerImagen = (nombreArchivo) => {
 const Cart = () => {
   const carrito = JSON.parse(localStorage.getItem("cart")) || [];
   const { cart, removeFromCart } = useContext(AuthContext);
-  
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+    
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
+
+
   const finalizarCompra = (e) => {
     // Prevenir la acción por defecto del botón si está dentro de un formulario
     e.preventDefault();
@@ -20,15 +30,6 @@ const Cart = () => {
     window.location.reload();
     alert("Compra completada. ¡Gracias por tu compra!");
   };
-
-  // const removeFromCart = (productId) => {
-  //   //console.log(productId);
-  //   // Filtrar el carrito para eliminar el producto por ID
-  //   const updatedCart = carrito.filter((product) => product.id_mochila !== productId);
-  //   // Actualizar el carrito en localStorage
-  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
-  //   window.location.reload();
-  // };
 
   return (
     <div>
@@ -80,3 +81,22 @@ const Cart = () => {
 };
 
 export default Cart;
+
+
+
+
+
+
+
+
+
+
+
+// const removeFromCart = (productId) => {
+  //   //console.log(productId);
+  //   // Filtrar el carrito para eliminar el producto por ID
+  //   const updatedCart = carrito.filter((product) => product.id_mochila !== productId);
+  //   // Actualizar el carrito en localStorage
+  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
+  //   window.location.reload();
+  // };
