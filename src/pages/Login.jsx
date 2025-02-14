@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import "../LoginForm.css"; 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 import usuarios from "../assets/js/usuarios";
 
@@ -16,9 +16,17 @@ const LoginForm = () => {
 
 useEffect(() => {
   if (user) {
-    navigate("/");
+    redirectUser(user);
   }
 }, [user, navigate]);
+
+const redirectUser = (user) => {
+  if (user.nivel_usuario === 3) {
+    navigate("/admin");
+  } else {
+    navigate("/");
+  }
+}
 
 const handleLogin = async (e) => {
   e.preventDefault();
@@ -26,19 +34,19 @@ const handleLogin = async (e) => {
     // Llamamos a la función login del contexto, que se encarga de la solicitud
     const data = await login(email, password);
     console.log("desde logins:", data);
-    
-    if (data.nivel_usuario === 3) {
-      navigate("/admin");
-    } else {
-      navigate("/");
-    }
+    redirectUser(data);
+    // if (data.nivel_usuario === 3) {
+    //   navigate("/admin");
+    // } else {
+    //   navigate("/");
+    // }
   } catch (error) {
     setErrorMessage(error.message || "Hubo un problema al iniciar sesión");
 
     // Recargar la página después de 3 segundos
     setTimeout(() => {
       window.location.reload();
-    }, 4000); // 3000ms = 3 segundos
+    }, 4000); 
   }     
      
 };

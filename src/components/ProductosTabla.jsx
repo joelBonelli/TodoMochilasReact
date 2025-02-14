@@ -3,23 +3,40 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
+const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
+const obtenerImagen = (nombreArchivo) => {
+  return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
+};
+
 const ProductosTable = () => {
     const [productos, setProductos] = useState([]);
     const navigate = useNavigate();
 
     //cargar los datos del localstorage
+    // useEffect(() => {
+    //     const productosGuardados = localStorage.getItem("productos");
+    //     if (productosGuardados) {
+    //         setProductos(JSON.parse(productosGuardados));
+    //     }
+    // }, []);
+
     useEffect(() => {
-        const productosGuardados = localStorage.getItem("productos");
-        if (productosGuardados) {
-            setProductos(JSON.parse(productosGuardados));
-        }
+        fetch("http://localhost:8888/productos")
+        .then( res => res.json())
+        .then( productos => {
+            setProductos(productos);
+        })
+        .catch(error => console.error('Error con el fetc', error));
     }, []);
+
+
+
 
     // Función para eliminar un producto
     const eliminarProducto = (id) => {
         if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
             const nuevosProductos = productos.filter(
-                (producto) => producto.id !== id
+                (producto) => producto.id_mochila !== id
             );
             localStorage.setItem("productos", JSON.stringify(nuevosProductos));
             setProductos(nuevosProductos);
@@ -49,26 +66,26 @@ const ProductosTable = () => {
                     </thead>
                     <tbody>
                         {productos.map((producto) => (
-                            <tr key={producto.id}>
-                                <td>{producto.id}</td>
-                                <td>{producto.nombre}</td>
-                                <td>${producto.precio}</td>
+                            <tr key={producto.id_mochila}>
+                                <td>{producto.id_mochila}</td>
+                                <td>{producto.nombre_mochila}</td>
+                                <td>${producto.precio_mochila}</td>
                                 <td>
                                     <img
-                                        src={producto.imagen}
-                                        alt={producto.nombre}
+                                        src={obtenerImagen(producto.foto_mochila)}
+                                        alt={producto.nombre_mochila}
                                         className="producto-imagen"
                                     />
                                 </td>
                                 <td>
                                     <button
-                                        onClick={() => modificarProducto(producto.id)}
+                                        onClick={() => modificarProducto(producto.id_mochila)}
                                         className="boton-am"
                                     >
                                         Modificar
                                     </button>
                                     <button
-                                        onClick={() => eliminarProducto(producto.id)}
+                                        onClick={() => eliminarProducto(producto.id_mochila)}
                                         className="boton-rojo"
                                     >
                                         Eliminar
