@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
-const obtenerImagen = (nombreArchivo) => {
-  return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
-};
+// const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
+// const obtenerImagen = (nombreArchivo) => {
+//   return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
+// };
 
 const Cart = () => {
   const carrito = JSON.parse(localStorage.getItem("cart")) || [];
@@ -45,7 +45,7 @@ const Cart = () => {
             {carrito.map((product) => (
               <div key={product.id_mochila} className="producto-carrito">
                 <img
-                  src={obtenerImagen(product.foto_mochila)}
+                  src={product.foto_mochila}
                   alt={product.nombre_mochila}
                   style={{
                     width: "400px",

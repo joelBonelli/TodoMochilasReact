@@ -49,7 +49,8 @@ const MasVendidos = () => {
             <div className="anuncio" key={producto.id_mochila}>
               <img
                 className="anuncio-foto"
-                src={obtenerImagen(producto.foto_mochila)}
+                // src={obtenerImagen(producto.foto_mochila)}
+                src={producto.foto_mochila}
                 alt={producto.nombre_mochila}
               />
               <div className="contenido-anuncio">

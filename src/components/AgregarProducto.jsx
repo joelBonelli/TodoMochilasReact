@@ -1,53 +1,96 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
   const AgregarProducto = () => {
     const navigate = useNavigate();
-  
     // Estado para manejar los campos del formulario
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
-    const [imagen, setImagen] = useState("");
+    const [imagen, setImagen] = useState(null);
     const [descripcion, setDescripcion] = useState("");
+    const [error, setError] = useState("");
+
+    // const handleImagenChange = (e) => {
+    //   const file = e.target.files[0];
+    //   if (file) {
+    //       const fileName = file.name;
+    //       setImagen(fileName);
+
+    //       const reader = new FileReader();
+    //       reader.onload = () => {
+    //         const filePath = `/src/assets/images/${fileName}`;
+    //         localStorage.setItem(filePath, reader.result);
+    //       };
+    //       reader.readAsDataURL(file);
+    //   }
+    // };
+
+    const validateForm = () => {
+      if (!nombre || !precio || !descripcion || !imagen) {
+          setError("Todos los campos son obligatorios desde el front.");
+          return false;
+      }
+      if (isNaN(precio) || precio <= 0) {
+          setError("El precio debe ser un número válido mayor a 0");
+          return false;
+      }
+      return true;
+    }
+
 
   // Función para manejar el envío del formulario
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Crear un nuevo producto
-    const nuevoProducto = {
-      id: new Date().getTime(), // Generar un ID único basado en la fecha
-      nombre,
-      precio,
-      imagen,
-      descripcion,
-    };
+    if (!validateForm()) return;
 
-    // Obtener los productos existentes del LocalStorage
-    const productosGuardados = JSON.parse(localStorage.getItem("productos")) || [];
-    
-    // Agregar el nuevo producto
-    productosGuardados.push(nuevoProducto);
-    
-    // Guardar los productos actualizados en el LocalStorage
-    localStorage.setItem("productos", JSON.stringify(productosGuardados));
-    alert("Usuario agregado exitosamente");
-    navigate("/productostabla");
-    // Limpiar los campos del formulario
-    setNombre("");
-    setPrecio("");
-    setImagen("");
-    setDescripcion("");
+    // Crear un nuevo producto
+    //const data = { nombre, precio, descripcion, imagen };
+
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('precio', precio);
+    formData.append('descripcion', descripcion);
+    formData.append('imagen', imagen);
+
+
+    try {
+        const response = await fetch(`http://localhost:8888/productos/create`, {
+        method: "POST",
+        // headers: {
+        //   "Content-Type" : "application/json"},
+        // body: JSON.stringify(data),
+        body: formData,
+      })
+
+      const result = await response.json();
+
+      if (response.ok) {
+        console.log("Producto creado", formData);
+        navigate("/productostabla");
+      } else {
+        setError(result.message || "Error al crear el producto"); 
+      }
+    } catch(error) {
+      setError(`Error de conexion con el servidor: ${error.message}`);
+      console.error("Error de conexion con el servidor:", error);
+        
+    }
   };
+
+
 
   return (
     <div>
     <Header />
     <main className="contenedor">
       <h2 className="subtitulo">Agregar Nuevo Producto</h2>
-      <form onSubmit={handleSubmit} className="formulario agregar-producto">
+
+      {error && <p className="error">{error}</p>}
+
+      <form onSubmit={handleSubmit} className="formulario agregar-producto" encType="multipart/form-data">
         <label htmlFor="nombre">Nombre del Producto</label>
         <input
           type="text"
@@ -69,8 +112,8 @@ import Footer from "./Footer";
         <label htmlFor="imagen">Seleccionar Imagen</label>
         <input
           type="file"
-        id="imagen"
-        onChange={(e) => handleImagenChange(e)}
+          id="imagen"
+          onChange={(e) => setImagen(e.target.files[0])}
           required
         />
 
@@ -92,3 +135,34 @@ import Footer from "./Footer";
 };
 
 export default AgregarProducto;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // // Obtener los productos existentes del LocalStorage
+    // const productosGuardados = JSON.parse(localStorage.getItem("productos")) || [];
+    
+    // // Agregar el nuevo producto
+    // productosGuardados.push(nuevoProducto);
+    
+    // // Guardar los productos actualizados en el LocalStorage
+    // localStorage.setItem("productos", JSON.stringify(productosGuardados));
+    // alert("Usuario agregado exitosamente");
+    // navigate("/productostabla");
+    // // Limpiar los campos del formulario
+    // setNombre("");
+    // setPrecio("");
+    // setImagen("");
+    // setDescripcion("");

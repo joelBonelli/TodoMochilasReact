@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
-const obtenerImagen = (nombreArchivo) => {
-  return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
-};
+// const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
+// const obtenerImagen = (nombreArchivo) => {
+//   return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
+// };
 
 const ProductosTable = () => {
     const [productos, setProductos] = useState([]);
@@ -72,7 +72,8 @@ const ProductosTable = () => {
                                 <td>${producto.precio_mochila}</td>
                                 <td>
                                     <img
-                                        src={obtenerImagen(producto.foto_mochila)}
+                                        // src={obtenerImagen(producto.foto_mochila)}
+                                        src={producto.foto_mochila}
                                         alt={producto.nombre_mochila}
                                         className="producto-imagen"
                                     />

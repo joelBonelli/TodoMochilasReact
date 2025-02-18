@@ -5,10 +5,10 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 
-const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
-const obtenerImagen = (nombreArchivo) => {
-  return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
-};
+// const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
+// const obtenerImagen = (nombreArchivo) => {
+//   return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
+// };
 
 const Product = () => {
   const { id } = useParams(); // Obtener el ID de la URL
@@ -79,7 +79,8 @@ const Product = () => {
       <main className="contenedor" >
         <h1>{producto.nombre_mochila}</h1>
         <div className="descripcion">
-          <img src={obtenerImagen(producto.foto_mochila)} alt={producto.nombre_mochila} />
+          {/* <img src={obtenerImagen(producto.foto_mochila)} alt={producto.nombre_mochila} /> */}
+          <img src={producto.foto_mochila} alt={producto.nombre_mochila} />
 
           <div className="mochila-descripcion">
             <p>{producto.descripcion_mochila}</p>

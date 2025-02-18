@@ -4,10 +4,10 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 // Cargar todas las imágenes de la carpeta "assets/images"
-const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
-const obtenerImagen = (nombreArchivo) => {
-  return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
-};
+// const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
+// const obtenerImagen = (nombreArchivo) => {
+//   return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
+// };
 
 const Gallery = () => {
   //estado para almacenar los productos
@@ -44,7 +44,8 @@ const Gallery = () => {
           {productos.length > 0 ? (
             productos.map((producto) => (
               <div className="producto" key={producto.id_mochila}>
-                <img src={obtenerImagen(producto.foto_mochila)} alt={producto.nombre_mochila} />
+                {/* <img src={obtenerImagen(producto.foto_mochila)} alt={producto.nombre_mochila} /> */}
+                <img src={producto.foto_mochila} alt={producto.nombre_mochila} />
                 <div className="info-producto">
                   <p className="producto-nombre">{producto.nombre_mochila}</p>
                   <p className="producto-precio">${producto.precio_mochila}</p>
