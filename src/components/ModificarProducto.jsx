@@ -11,7 +11,7 @@ const ModificarProducto = () => {
   // Estado para manejar los campos del formulario
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
-  const [imagen, setImagen] = useState(null);
+  const [imagen, setImagen] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [imagenPreview, setImagenPreview] = useState("");
   
@@ -25,8 +25,12 @@ const ModificarProducto = () => {
         setProducto(productoData);
         setNombre(productoData.nombre_mochila);
         setPrecio(productoData.precio_mochila);
+        //setImagen(productoData.foto_mochila);
         setImagenPreview(productoData.foto_mochila);
         setDescripcion(productoData.descripcion_mochila);
+        console.log("useEFFEc", imagen);
+        console.log("useEFFEc", nombre);
+        console.log("use effec image previa", imagenPreview);
       } else {
         setProducto(null);
       }
@@ -36,39 +40,74 @@ const ModificarProducto = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImagen(file);
-    setImagenPreview(URL.createObjectURL(file));
+    if (file) {
+      setImagen(file);
+      setImagenPreview(URL.createObjectURL(file));
+      console.log("HANDLE-IMAGE-CHANGE",file);
+    }
   };
-
 
   // Función para manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!nombre.trim()) {
+      alert("El nombre del producto no puede estar vacío.");
+      return;
+    }
+
+    if (!precio || isNaN(precio) || parseFloat(precio) <= 0) {
+      alert("Ingrese un precio válido mayor a 0.");
+      return;
+    }
+
+    if (!descripcion.trim()) {
+      alert("La descripción no puede estar vacía.");
+      return;
+    }
+    
+    const formData = new FormData();
+    formData.append("nombre", nombre || producto.nombre_mochila);
+    formData.append("precio", precio || producto.precio_mochila);
+    formData.append("descripcion", descripcion || producto.descripcion_mochila);
+    
+    // Verificar si se seleccionó una nueva imagen
+    if (imagen instanceof File) {
+      formData.append("imagen", imagen);
+    } else {
+      // Extraer solo el nombre del archivo de la URL
+      const nombreArchivo = producto.foto_mochila.split("/").pop();
+      formData.append("imagenActual", nombreArchivo);
+    }
+
+    console.log([...formData.entries()]); // Para verificar qué datos está enviando
+
+
+    // // Si el usuario subió una nueva imagen, usarla
+    // if (imagen instanceof File) {
+    //   formData.append("imagen", imagen);
+    // } else {
+    //   // Si no se subió una nueva imagen, mantener la previa
+    //   formData.append("imagen", imagenPreview);
+    // }
+
+
+    // if (imagen) {
+    //   formData.append("imagen", imagen);
+    // } 
+    // else {
+    //   //setImagen(producto.foto_mochila);
+    //   formData.append("imagen_actual", imagen);
+    // }
 
     console.log("Nombre:", nombre);
     console.log("Precio:", precio);
     console.log("Imagen:", imagen);
     console.log("Descripción:", descripcion);
 
-    // const data = {
-    //   nombre,
-    //   precio,
-    //   imagen,
-    //   descripcion,
-    // };
-    const formData = new FormData();
-    formData.append("nombre", nombre);
-    formData.append("precio", precio);
-    formData.append("imagen", imagen);
-    formData.append("descripcion", descripcion);
-
 
     fetch(`http://localhost:8888/productos/actualizar/${id}`, {
-      method: "POST",
-      // headers: {
-      //   "Content-Type" : "application/json",
-      // },
-      // body: JSON.stringify(data),
+      method: "PUT",
       body: formData,
     })
     .then((res) => res.json())
@@ -109,14 +148,13 @@ const ModificarProducto = () => {
           <input
             type="file"
             id="imagen"
-            // value={imagen}
             onChange={handleImageChange}
             accept="image/*"
-            // onChange={(e) => setImagen(e.target.value)} // Para manejar la imagen seleccionada
           />
           {imagenPreview && (
             <div>
-              <img src={imagenPreview} alt="Vista previa" style={{ width: "100px", height: "100px" }} />
+              <p>Imagen Actual</p>
+              <img src={imagenPreview} alt="Vista previa" style={{ width: "100px", height: "100px", marginBottom: "20px" }} />
             </div>
           )}
 
