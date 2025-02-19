@@ -12,21 +12,6 @@ import Footer from "./Footer";
     const [descripcion, setDescripcion] = useState("");
     const [error, setError] = useState("");
 
-    // const handleImagenChange = (e) => {
-    //   const file = e.target.files[0];
-    //   if (file) {
-    //       const fileName = file.name;
-    //       setImagen(fileName);
-
-    //       const reader = new FileReader();
-    //       reader.onload = () => {
-    //         const filePath = `/src/assets/images/${fileName}`;
-    //         localStorage.setItem(filePath, reader.result);
-    //       };
-    //       reader.readAsDataURL(file);
-    //   }
-    // };
-
     const validateForm = () => {
       if (!nombre || !precio || !descripcion || !imagen) {
           setError("Todos los campos son obligatorios desde el front.");
@@ -59,9 +44,6 @@ import Footer from "./Footer";
     try {
         const response = await fetch(`http://localhost:8888/productos/create`, {
         method: "POST",
-        // headers: {
-        //   "Content-Type" : "application/json"},
-        // body: JSON.stringify(data),
         body: formData,
       })
 

@@ -3,44 +3,41 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
-// const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
-// const obtenerImagen = (nombreArchivo) => {
-//   return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
-// };
-
 const ProductosTable = () => {
     const [productos, setProductos] = useState([]);
     const navigate = useNavigate();
 
-    //cargar los datos del localstorage
-    // useEffect(() => {
-    //     const productosGuardados = localStorage.getItem("productos");
-    //     if (productosGuardados) {
-    //         setProductos(JSON.parse(productosGuardados));
-    //     }
-    // }, []);
-
-    useEffect(() => {
+    const fetchProductos = () => {
         fetch("http://localhost:8888/productos")
         .then( res => res.json())
         .then( productos => {
             setProductos(productos);
         })
         .catch(error => console.error('Error con el fetc', error));
+    }
+
+    useEffect(() => {
+        fetchProductos();
     }, []);
-
-
 
 
     // Función para eliminar un producto
     const eliminarProducto = (id) => {
         if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-            const nuevosProductos = productos.filter(
-                (producto) => producto.id_mochila !== id
-            );
-            localStorage.setItem("productos", JSON.stringify(nuevosProductos));
-            setProductos(nuevosProductos);
-            navigate("/productostabla");
+            fetch(`http://localhost:8888/productos/delete/${id}`, {
+                method: "DELETE",
+            })
+            .then( (res) => {
+                if (!res.ok) {
+                    throw new Error("Error al eliminar el producto");
+                }
+                alert("Producto eliminado con éxito");
+                fetchProductos();
+                //navigate("/productostabla");
+            })
+            .catch((error) => {
+                alert("No se pudo eliminar el producto");
+            });
         }
     };
 
