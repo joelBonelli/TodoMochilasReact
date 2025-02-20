@@ -18,7 +18,7 @@ const Footer = () => {
         </nav>
       </div>
 
-      <p>Todos los derechos reservados 2024</p>
+      <p>Todos los derechos reservados 2025</p>
     </footer>
   );
 };

@@ -33,8 +33,15 @@ const Header = () => {
         <div>
           {user ? (
             <div className="iconos-sesion-cart">
-              <span className="username">{user.nombre_usuario} {user.apellido_usuario}</span>{" "}
-              {/* Muestra el nombre del usuario */}
+              {user.nivel_usuario === 3 ? (
+                  <Link to="/admin" className="username">
+                    {user.nombre_usuario} {user.apellido_usuario}
+                  </Link>
+                ) : (
+                  <span className="username">
+                    {user.nombre_usuario} {user.apellido_usuario}
+                  </span>
+                )}
               <button
                 onClick={logout}
                 className="login-icon"

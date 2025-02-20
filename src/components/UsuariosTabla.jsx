@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 
 const UsuariosTabla = () => {
+  const [usuarios, setUsuarios] = React.useState([]);
   const navigate = useNavigate();
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-  const eliminarUsuario = (id) => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-      const nuevosUsuarios = usuarios.filter((usuario) => usuario.id !== id);
-      localStorage.setItem("usuarios", JSON.stringify(nuevosUsuarios));
-        navigate("/usuariostabla");
-    }
-  };
+  const fetchUsuarios = () => {
+    fetch("http://localhost:8888/usuarios")
+      .then((res) => res.json())
+      .then((usuarios) => {
+        setUsuarios(usuarios);
+      })
+      .catch((error) => console.error("Error con el fetch", error));
+  }
+
+  useEffect(() => {
+    fetchUsuarios();
+  }, []);
+
+ //Falta la función para eliminar un usuario
+
+ const eliminarUsuario = (id) => {
+  if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+    fetch(`http://localhost:8888/usuarios/delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Error al eliminar el usuario");
+        }
+        alert("Usuario eliminado con éxito");
+        fetchUsuarios();
+      })
+      .catch((error) => {
+        alert("No se pudo eliminar el usuario");
+      });
+  }
+};
 
   const modificarUsuario = (id) => {
     navigate(`/modificar-usuario/${id}`);
@@ -37,14 +62,14 @@ const UsuariosTabla = () => {
           </thead>
           <tbody>
             {usuarios.map((usuario) => (
-              <tr key={usuario.id}>
-                <td>{usuario.id}</td>
-                <td>{usuario.correo}</td>
-                <td>{usuario.nombre}</td>
-                <td>{usuario.rol}</td>
-                <td>
-                  <button onClick={() => modificarUsuario(usuario.id)} className="boton-am">Modificar</button>
-                  <button onClick={() => eliminarUsuario(usuario.id)} className="boton-rojo">Eliminar</button>
+              <tr key={usuario.id_usuario}>
+              <td>{usuario.id_usuario}</td>
+              <td>{usuario.nombre_usuario}</td>
+              <td>{usuario.correo_usuario}</td>
+              <td>{usuario.nivel_usuario}</td>
+              <td>
+                  <button onClick={() => modificarUsuario(usuario.id_usuario)} className="boton-am">Modificar</button>
+                  <button onClick={() => eliminarUsuario(usuario.id_usuario)} className="boton-rojo">Eliminar</button>
                 </td>
               </tr>
             ))}

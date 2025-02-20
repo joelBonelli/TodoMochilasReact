@@ -1,7 +1,4 @@
 import React, { createContext, useState, useEffect } from "react";
-
-
-
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -19,6 +16,7 @@ export const AuthProvider = ({ children }) => {
       setCart(storedCart);
   }}, []);
 
+
     // Funcion para iniciar sesion
     const login = async (email, password) => {      
       try {
@@ -28,7 +26,7 @@ export const AuthProvider = ({ children }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify( { email, password }),
-          credentials: "include",
+          //credentials: "include",
         });
 
         if (response.ok) {
@@ -47,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error(errorData.message || "Error Desconocido");
         }
       } catch (error) {
-        console.error("Error al iniciar sesión", error);
+        console.error("Error al iniciar sesión desde funcion login", error);
         throw error;
       }
     };
@@ -55,7 +53,7 @@ export const AuthProvider = ({ children }) => {
      //Función para cerrar sesión
      const logout = async () => {
       localStorage.removeItem("user"); 
-      localStorage.removeItem("cart"); 
+      localStorage.removeItem("cart");
       setUser(null); // Limpia el estado del usuario
       setCart([]);
       //console.log("Logout ejecutado. Usuario:", user);
@@ -121,7 +119,7 @@ export default AuthContext;
     // useEffect(() => {
     //   const fetchUser = async () => {
     //     try {
-    //       const response =await fetch("http://localhost:8888/usuarios/sesion", {
+    //       const response =await fetch("http://localhost:8888", {
     //         credentials: "include",
     //       });
     //       if (response.ok) {

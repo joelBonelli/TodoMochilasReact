@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { redirect, useNavigate } from "react-router-dom";
 
-import usuarios from "../assets/js/usuarios";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ useEffect(() => {
   if (user) {
     redirectUser(user);
   }
-}, [user, navigate]);
+}, [user]);
 
 const redirectUser = (user) => {
   if (user.nivel_usuario === 3) {

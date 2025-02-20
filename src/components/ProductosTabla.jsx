@@ -6,6 +6,7 @@ import Footer from "./Footer";
 const ProductosTable = () => {
     const [productos, setProductos] = useState([]);
     const navigate = useNavigate();
+  
 
     const fetchProductos = () => {
         fetch("http://localhost:8888/productos")
@@ -40,6 +41,7 @@ const ProductosTable = () => {
             });
         }
     };
+    
 
     // Función para redirigir a la vista de modificar
     const modificarProducto = (id) => {
