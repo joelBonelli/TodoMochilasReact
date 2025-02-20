@@ -19,10 +19,6 @@ export const AuthProvider = ({ children }) => {
       setCart(storedCart);
   }}, []);
 
-  // useEffect(() => {
-  //   console.log("Usuario Actualizado", user);
-  // },[user]);
-
     // Funcion para iniciar sesion
     const login = async (email, password) => {      
       try {
@@ -31,7 +27,7 @@ export const AuthProvider = ({ children }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify( { email, password}),
+          body: JSON.stringify( { email, password }),
           credentials: "include",
         });
 
