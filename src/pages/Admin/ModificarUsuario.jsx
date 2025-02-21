@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const ModificarUsuario = () => {
   const { id } = useParams();

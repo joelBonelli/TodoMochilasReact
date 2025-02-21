@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate  } from 'react-router-dom';
 
-// Importa las páginas
+// Importa las páginas de clientes
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -13,13 +13,15 @@ import Signup from './pages/signup';
 
 import { AuthProvider } from './context/AuthContext';
 import RutasProtegidas from './components/RutasProtegidas';
-import AdminPanel from './components/AdminPanel';
-import AgregarProducto from './components/AgregarProducto';
-import AgregarUsuarioAdmin from './components/agregarUsuarioAdmin';
-import ProductosTable from './components/ProductosTabla';
-import ModificarProducto from './components/ModificarProducto';
-import UsuariosTabla from './components/UsuariosTabla';
-import ModificarUsuario from './components/ModificarUsuario';
+
+//Importa las paginas de administradores
+import AdminPanel from './pages/Admin/AdminPanel';
+import ProductosTable from './pages/Admin/ProductosTabla';
+import UsuariosTabla from './pages/Admin/UsuariosTabla';
+import AgregarProducto from './pages/Admin/AgregarProducto';
+import AgregarUsuarioAdmin from './pages/Admin/agregarUsuarioAdmin';
+import ModificarProducto from './pages/Admin/ModificarProducto';
+import ModificarUsuario from './pages/Admin/ModificarUsuario';
 
 function App() {
   return (
