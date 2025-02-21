@@ -11,8 +11,7 @@ const ModificarUsuario = () => {
   const [apellido, setApellido] = useState("");
   const [dni, setDNI] = useState("");
   const [correo, setCorreo] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
+ 
   const [rol, setRol] = useState("");
   const [legajo, setLegajo] = useState("");
   const [error, setError] = useState("");
@@ -32,7 +31,6 @@ const ModificarUsuario = () => {
           setApellido(usuarioData.apellido_usuario);
           setDNI(usuarioData.dni_usuario);
           setCorreo(usuarioData.correo_usuario);
-          setPassword(usuarioData.password_usuario);
           setRol(usuarioData.nivel_usuario);
           setLegajo(usuarioData.legajo_usuario);
 
@@ -48,7 +46,7 @@ const ModificarUsuario = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!nombre.trim() || !apellido.trim() || !dni || !correo.trim() || !password.trim() || !rol || !legajo) {
+    if (!nombre.trim() || !apellido.trim() || !dni || !correo.trim() ||  !rol || !legajo) {
       setError("Todos los campos son obligatorios");
       return;
     }
@@ -58,7 +56,6 @@ const ModificarUsuario = () => {
     formData.append("apellido", apellido);
     formData.append("dni", dni);
     formData.append("correo", correo);
-    formData.append("password", password);
     formData.append("rol", rol);
     formData.append("legajo", legajo);
 
@@ -99,9 +96,6 @@ const ModificarUsuario = () => {
           <label htmlFor="legajo">Legajo</label>
           <input type="number" id="legajo" value={legajo} onChange={(e) => setLegajo(e.target.value)} required />
 
-          <label htmlFor="password">Contraseña</label>
-          <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-
           <label htmlFor="rol">Rol</label>
           <input
             type="number"
@@ -113,7 +107,7 @@ const ModificarUsuario = () => {
             required
           />
 
-          <button type="submit" className="boton-amarillo">Agregar Usuario</button>
+          <button type="submit" className="boton-amarillo">Modificar usuario</button>
         </form>
       </main>
       <Footer />
