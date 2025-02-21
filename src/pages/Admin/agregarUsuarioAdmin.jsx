@@ -49,12 +49,7 @@ const AgregarUsuarioAdmin = () => {
     formData.append('dni', dni);
     formData.append('password', password);
     formData.append('rol', rol); // Convertimos a número
-    formData.append('legajo', legajo);
-
-
-
-    
-
+    formData.append('legajo', legajo);  
 
     try {
     console.log(Array.from(formData.entries()));
