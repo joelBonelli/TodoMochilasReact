@@ -5,6 +5,9 @@ import Footer from "../../components/Footer";
 
 
 const ModificarProducto = () => {
+  const token = localStorage.getItem("token");
+  console.log("token extraido en agregar productos", localStorage.getItem("token"));
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [producto, setProducto] = useState(null);
@@ -109,6 +112,9 @@ const ModificarProducto = () => {
     fetch(`http://localhost:8888/productos/actualizar/${id}`, {
       method: "PUT",
       body: formData,
+      headers: {
+        "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
+    }
     })
     .then((res) => res.json())
     .then((data) => {

@@ -5,6 +5,10 @@ import Footer from "../../components/Footer";
 
   const AgregarProducto = () => {
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+    console.log("token extraido en agregar productos", localStorage.getItem("token"));
+
+
     // Estado para manejar los campos del formulario
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
@@ -45,6 +49,12 @@ import Footer from "../../components/Footer";
         const response = await fetch(`http://localhost:8888/productos/create`, {
         method: "POST",
         body: formData,
+        headers: {
+          "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
+      }
+      // headers: {
+      //   "Authorization": token ? `Bearer ${token}` : "",
+      // }
       })
 
       const result = await response.json();
