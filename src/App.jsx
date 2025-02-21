@@ -25,8 +25,8 @@ import ModificarUsuario from './pages/Admin/ModificarUsuario';
 
 function App() {
   return (
-    <AuthProvider>
     <Router>
+    <AuthProvider>
       <Routes>
 
         {/*Rutas de clientes*/}
@@ -48,8 +48,8 @@ function App() {
           <Route path="/usuariostabla" element={<RutasProtegidas element={<UsuariosTabla />} />} />
           <Route path="/modificar-usuario/:id" element={<RutasProtegidas element={<ModificarUsuario />} />} />
         </Routes>
-      </Router>
     </AuthProvider>
+      </Router>
   );
 }
 

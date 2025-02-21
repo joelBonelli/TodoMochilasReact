@@ -6,10 +6,14 @@ import Footer from "../../components/Footer";
 const ProductosTable = () => {
     const [productos, setProductos] = useState([]);
     const navigate = useNavigate();
-  
+    const token = localStorage.getItem("token");
 
     const fetchProductos = () => {
-        fetch("http://localhost:8888/productos")
+        fetch("http://localhost:8888/productos", {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
         .then( res => res.json())
         .then( productos => {
             setProductos(productos);
@@ -27,6 +31,9 @@ const ProductosTable = () => {
         if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
             fetch(`http://localhost:8888/productos/delete/${id}`, {
                 method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
+                }
             })
             .then( (res) => {
                 if (!res.ok) {

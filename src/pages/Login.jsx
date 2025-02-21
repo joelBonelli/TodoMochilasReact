@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import "../LoginForm.css"; 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { redirect, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
@@ -13,6 +13,10 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/admin";
+
+  
 useEffect(() => {
   if (user) {
     redirectUser(user);
@@ -21,7 +25,8 @@ useEffect(() => {
 
 const redirectUser = (user) => {
   if (user.nivel_usuario === 3) {
-    navigate("/admin");
+    //navigate("/admin");
+    navigate(from, { replace: true });
   } else {
     navigate("/");
   }
