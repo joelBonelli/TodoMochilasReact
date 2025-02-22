@@ -6,6 +6,7 @@ import Footer from "../../components/Footer";
 const ModificarUsuario = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -63,6 +64,9 @@ const ModificarUsuario = () => {
     fetch(`http://localhost:8888/usuarios/actualizar/${id}`, {
       method: "PUT",
       body: formData,
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
     })
       .then((res) => res.json())
       .then((data) => {

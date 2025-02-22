@@ -36,8 +36,6 @@ import Footer from "../../components/Footer";
     if (!validateForm()) return;
 
     // Crear un nuevo producto
-    //const data = { nombre, precio, descripcion, imagen };
-
     const formData = new FormData();
     formData.append('nombre', nombre);
     formData.append('precio', precio);
@@ -51,17 +49,14 @@ import Footer from "../../components/Footer";
         body: formData,
         headers: {
           "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
-      }
-      // headers: {
-      //   "Authorization": token ? `Bearer ${token}` : "",
-      // }
+        }
       })
-
       const result = await response.json();
 
       if (response.ok) {
         console.log("Producto creado", formData);
         navigate("/productostabla");
+
       } else {
         setError(result.message || "Error al crear el producto"); 
       }
@@ -127,34 +122,3 @@ import Footer from "../../components/Footer";
 };
 
 export default AgregarProducto;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- // // Obtener los productos existentes del LocalStorage
-    // const productosGuardados = JSON.parse(localStorage.getItem("productos")) || [];
-    
-    // // Agregar el nuevo producto
-    // productosGuardados.push(nuevoProducto);
-    
-    // // Guardar los productos actualizados en el LocalStorage
-    // localStorage.setItem("productos", JSON.stringify(productosGuardados));
-    // alert("Usuario agregado exitosamente");
-    // navigate("/productostabla");
-    // // Limpiar los campos del formulario
-    // setNombre("");
-    // setPrecio("");
-    // setImagen("");
-    // setDescripcion("");

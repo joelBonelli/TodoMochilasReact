@@ -39,11 +39,6 @@ const handleLogin = async (e) => {
     const data = await login(email, password);
     console.log("desde logins:", data);
     redirectUser(data);
-    // if (data.nivel_usuario === 3) {
-    //   navigate("/admin");
-    // } else {
-    //   navigate("/");
-    // }
   } catch (error) {
     setErrorMessage(error.message || "Hubo un problema al iniciar sesión");
 
@@ -105,81 +100,3 @@ const handleLogin = async (e) => {
 
 export default LoginForm;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const usuariosGuardados = localStorage.getItem("usuarios");
-
-  // if (!usuariosGuardados) {
-  //   // Convertir a JSON y guardar en localStorage
-  //   localStorage.setItem("usuarios", JSON.stringify(usuarios));
-  // }
-
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-
-  //   if (!login(email, password)) {
-  //     console.log("Credenciales incorrectas");
-  //   } else {
-  //     console.log("Credenciales correctas");
-  //     console.log(user);
-  //     if (user && user.rol === 1) {
-  //       navigate("/admin");
-  //     } else {
-  //       navigate("/");
-  //     }
-  //   }
-  // };
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
- 
-//   try {
-//     const response = await fetch("http://localhost:8888/usuarios/login", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify( { email, password}),
-//     });
-
-//     if (!response.ok) {
-//       console.log("Credenciales incorrectas");
-//       return;      
-//     }
-
-//     const data = await response.json();
-//     login(data);
-//     console.log("credenciales correctas");
-//     console.log(user);
-    
-//     if (data.rol === 3) {
-//       navigate("/admin");
-//     } else {
-//       navigate("/");
-//     }    
-//   } catch (error) {
-//     console.error("error al iniciar sesion:", error); 
-//   }
-// }

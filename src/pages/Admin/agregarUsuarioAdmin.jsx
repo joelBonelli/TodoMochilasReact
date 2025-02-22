@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 
 const AgregarUsuarioAdmin = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -57,6 +58,9 @@ const AgregarUsuarioAdmin = () => {
       const response = await fetch(`http://localhost:8888/usuarios/create`, {
         method: "POST",
         body: formData,
+        headers: {
+          "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
+        }
       });
 
       if (!response.ok) {

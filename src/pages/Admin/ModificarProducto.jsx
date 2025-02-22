@@ -28,7 +28,6 @@ const ModificarProducto = () => {
         setProducto(productoData);
         setNombre(productoData.nombre_mochila);
         setPrecio(productoData.precio_mochila);
-        //setImagen(productoData.foto_mochila);
         setImagenPreview(productoData.foto_mochila);
         setDescripcion(productoData.descripcion_mochila);
         console.log("useEFFEc", imagen);
@@ -84,25 +83,6 @@ const ModificarProducto = () => {
     }
 
     console.log([...formData.entries()]); // Para verificar qué datos está enviando
-
-
-    // // Si el usuario subió una nueva imagen, usarla
-    // if (imagen instanceof File) {
-    //   formData.append("imagen", imagen);
-    // } else {
-    //   // Si no se subió una nueva imagen, mantener la previa
-    //   formData.append("imagen", imagenPreview);
-    // }
-
-
-    // if (imagen) {
-    //   formData.append("imagen", imagen);
-    // } 
-    // else {
-    //   //setImagen(producto.foto_mochila);
-    //   formData.append("imagen_actual", imagen);
-    // }
-
     console.log("Nombre:", nombre);
     console.log("Precio:", precio);
     console.log("Imagen:", imagen);
@@ -182,58 +162,3 @@ const ModificarProducto = () => {
 
 export default ModificarProducto;
 
-
-
-
-
-
-
-
-
-
-//   // Obtiene los productos existentes del LocalStorage
-  //   const productosGuardados = JSON.parse(localStorage.getItem("productos")) || [];
-
-  //   // encuentra el índice del producto a modificar
-  //   const index = productosGuardados.findIndex((producto) => producto.id === parseInt(id));
-
-  //   if (index !== -1) {
-  //     // Actualiza los datos del producto
-  //     productosGuardados[index] = {
-  //       id: parseInt(id), // El ID no se cambia
-  //       nombre,
-  //       precio,
-  //       imagen,
-  //       descripcion,
-  //     };
-
-  //     // Guarda los productos actualizados en el LocalStorage
-  //     localStorage.setItem("productos", JSON.stringify(productosGuardados));
-
-  //     // Redirigie al listado de productos
-  //     navigate("/productostabla");
-  //   }
-
-
-
-
-
-  // Cargar los datos del producto al montar el componente
-  // useEffect(() => {
-  //   // Obtener productos desde el localStorage
-  //   const productosGuardados = JSON.parse(localStorage.getItem("productos")) || [];
-
-  //   // Buscar el producto que corresponde al ID
-  //   const producto = productosGuardados.find((p) => p.id === parseInt(id));
-
-  //   if (producto) {
-  //     // Pre-llenar el formulario con los datos del producto
-  //     setNombre(producto.nombre);
-  //     setPrecio(producto.precio);
-  //     setImagen(producto.imagen);
-  //     setDescripcion(producto.descripcion);
-  //   } else {
-  //     // Si no se encuentra el producto, redirigir al listado
-  //     navigate("/productostabla");
-  //   }
-  // }, [id, navigate]);

@@ -54,7 +54,7 @@ const Signup = () => {
         try {
             console.log(Array.from(formData.entries()));
 
-            const response = await fetch(`http://localhost:8888/usuarios/create`, {
+            const response = await fetch(`http://localhost:8888/usuarios/register`, {
                 method: "POST",
                 body: formData,
             });

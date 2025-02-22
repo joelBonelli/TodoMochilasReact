@@ -23,20 +23,6 @@ const MasVendidos = () => {
       .catch(error => console.error('Error con el fetc', error));
   }, [])
 
-  //const obtenerImagen = (id) =>  require(`../assets/images/mochilas${id}.jpg`);
-  // useEffect(() => {
-  //   // Recupera los productos desde el localStorage
-  //   const productos = JSON.parse(localStorage.getItem("productos")) || [];
-
-  //   // Verifica que el array de productos no esté vacío
-  //   if (productos.length > 0) {
-  //     // Ordena los productos por el precio de forma descendente y toma los tres primeros
-  //     const productosOrdenados = productos
-  //       .sort((a, b) => b.precio - a.precio)
-  //       .slice(0, 3);
-  //     setProductosMasCaros(productosOrdenados);
-  //   }
-  // }, []);
 
 
   return (

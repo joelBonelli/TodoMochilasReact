@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 const UsuariosTabla = () => {
   const [usuarios, setUsuarios] = React.useState([]);
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const fetchUsuarios = () => {
     fetch("http://localhost:8888/usuarios")
@@ -26,6 +27,9 @@ const UsuariosTabla = () => {
   if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
     fetch(`http://localhost:8888/usuarios/delete/${id}`, {
       method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
+    }
     })
       .then((res) => {
         if (!res.ok) {
