@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import axios from "axios";
+
 
 // const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
 // const obtenerImagen = (nombreArchivo) => {
@@ -11,18 +11,21 @@ import axios from "axios";
 // };
 
 const Cart = () => {
+
   const carrito = JSON.parse(localStorage.getItem("cart")) || [];
   const { cart, removeFromCart } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("token");
+
     
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
-  }, [user]);
+  }, [user, navigate]);
 
  // Función para verificar el stock de todos los productos en el carrito
  const verificarStock = async () => {
@@ -35,42 +38,36 @@ const Cart = () => {
   setError("");
 
   try {
-    console.log("Enviando productos para verificar stock:", carrito);
+    console.log("Verificando y descontando stock para los productos:", carrito);
 
-    const response = await fetch("http://localhost:8888/productos/verificar-stock", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ productos: carrito }),
-    });
+    for (const product of carrito) {
+      const response = await fetch(`http://localhost:8888/productos/${product.id_mochila}/restar-stock`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ cantidad: product.cantidad }),
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || `Error en la solicitud: ${response.status}`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Error en la solicitud: ${response.status}`);
+      }
     }
 
-    const data = await response.json();
-    console.log("Respuesta del servidor:", data);
-
-    if (data.error) {
-      setError(data.error);
-    } else {
-      finalizarCompra();
-    }
+    finalizarCompra(); // Solo se ejecuta si todos los productos pudieron restar stock
   } catch (error) {
-    console.error("Error en la solicitud:", error);
+    console.error("Error al verificar y restar stock:", error);
     setError(`Hubo un problema al verificar el stock: ${error.message}`);
   } finally {
     setLoading(false);
   }
 };
 
-
-
-  const finalizarCompra = (e) => {
+  const finalizarCompra = () => {
     // Prevenir la acción por defecto del botón si está dentro de un formulario
-    e.preventDefault();
+   // e.preventDefault();
     // Limpiar el carrito en localStorage
     localStorage.removeItem("cart");
     window.location.reload();
@@ -149,4 +146,4 @@ export default Cart;
   //   // Actualizar el carrito en localStorage
   //   localStorage.setItem("cart", JSON.stringify(updatedCart));
   //   window.location.reload();
-  // };
+  // }
