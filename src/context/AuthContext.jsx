@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {      
           try {
+            console.log(email, password)
             const response = await fetch("http://localhost:8888/usuarios/login", {
               method: "POST",
               headers: {
@@ -61,6 +62,7 @@ export const AuthProvider = ({ children }) => {
             });
     
             if (response.ok) {
+              console.log("entre acá")
               const data = await response.json();
               localStorage.setItem("user", JSON.stringify(data.user));
               localStorage.setItem("token", data.token);
