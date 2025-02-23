@@ -28,7 +28,7 @@ const Gallery = () => {
           //console.log(productos);
           setProductos(productos);
         })
-        .catch(error => console.error('Error con el fetc', error));
+        .catch(error => console.error('Error con el fetch', error));
     }, [])
 
 

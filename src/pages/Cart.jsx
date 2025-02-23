@@ -1,8 +1,9 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 // const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
 // const obtenerImagen = (nombreArchivo) => {
@@ -14,12 +15,57 @@ const Cart = () => {
   const { cart, removeFromCart } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
     
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, [user]);
+
+ // Función para verificar el stock de todos los productos en el carrito
+ const verificarStock = async () => {
+  if (carrito.length === 0) {
+    setError("El carrito está vacío.");
+    return;
+  }
+
+  setLoading(true);
+  setError("");
+
+  try {
+    console.log("Enviando productos para verificar stock:", carrito);
+
+    const response = await fetch("http://localhost:8888/productos/verificar-stock", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ productos: carrito }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Error en la solicitud: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Respuesta del servidor:", data);
+
+    if (data.error) {
+      setError(data.error);
+    } else {
+      finalizarCompra();
+    }
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+    setError(`Hubo un problema al verificar el stock: ${error.message}`);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
 
   const finalizarCompra = (e) => {
@@ -66,9 +112,13 @@ const Cart = () => {
               </div>
             ))}
 
-            <div className="centrado">
-              <button className="boton-verde" onClick={finalizarCompra}>
-                Completar compra
+<div className="centrado">
+              <button
+                className="boton-verde"
+                onClick={verificarStock}
+                disabled={loading}
+              >
+                {loading ? "Verificando..." : "Completar compra"}
               </button>
             </div>
           </div>
