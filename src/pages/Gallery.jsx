@@ -22,14 +22,14 @@ const Gallery = () => {
   // }, []);
 
   useEffect(() => {
-        fetch("http://localhost:8888/productos")
-        .then( res => res.json())
-        .then( productos => {
-          //console.log(productos);
-          setProductos(productos);
-        })
-        .catch(error => console.error('Error con el fetch', error));
-    }, [])
+    fetch("http://localhost:8888/productos")
+      .then(res => res.json())
+      .then(productos => {
+        //console.log(productos);
+        setProductos(productos);
+      })
+      .catch(error => console.error('Error con el fetch', error));
+  }, [])
 
 
 

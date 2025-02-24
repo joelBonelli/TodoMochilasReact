@@ -17,27 +17,27 @@ const ModificarProducto = () => {
   const [imagen, setImagen] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [imagenPreview, setImagenPreview] = useState("");
-  
+
 
   useEffect(() => {
     fetch(`http://localhost:8888/productos/${id}`)
-    .then( res => res.json() )
-    .then( producto => {
-      if (producto) {
-        const productoData = Array.isArray(producto) ? producto[0] : producto;
-        setProducto(productoData);
-        setNombre(productoData.nombre_mochila);
-        setPrecio(productoData.precio_mochila);
-        setImagenPreview(productoData.foto_mochila);
-        setDescripcion(productoData.descripcion_mochila);
-        console.log("useEFFEc", imagen);
-        console.log("useEFFEc", nombre);
-        console.log("use effec image previa", imagenPreview);
-      } else {
-        setProducto(null);
-      }
-    })
-    .catch(error => console.error('Error con el fetc', error));
+      .then(res => res.json())
+      .then(producto => {
+        if (producto) {
+          const productoData = Array.isArray(producto) ? producto[0] : producto;
+          setProducto(productoData);
+          setNombre(productoData.nombre_mochila);
+          setPrecio(productoData.precio_mochila);
+          setImagenPreview(productoData.foto_mochila);
+          setDescripcion(productoData.descripcion_mochila);
+          console.log("useEFFEc", imagen);
+          console.log("useEFFEc", nombre);
+          console.log("use effec image previa", imagenPreview);
+        } else {
+          setProducto(null);
+        }
+      })
+      .catch(error => console.error('Error con el fetc', error));
   }, [id])
 
   const handleImageChange = (e) => {
@@ -45,7 +45,7 @@ const ModificarProducto = () => {
     if (file) {
       setImagen(file);
       setImagenPreview(URL.createObjectURL(file));
-      console.log("HANDLE-IMAGE-CHANGE",file);
+      console.log("HANDLE-IMAGE-CHANGE", file);
     }
   };
 
@@ -67,12 +67,12 @@ const ModificarProducto = () => {
       alert("La descripción no puede estar vacía.");
       return;
     }
-    
+
     const formData = new FormData();
     formData.append("nombre", nombre || producto.nombre_mochila);
     formData.append("precio", precio || producto.precio_mochila);
     formData.append("descripcion", descripcion || producto.descripcion_mochila);
-    
+
     // Verificar si se seleccionó una nueva imagen
     if (imagen instanceof File) {
       formData.append("imagen", imagen);
@@ -94,17 +94,17 @@ const ModificarProducto = () => {
       body: formData,
       headers: {
         "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
-    }
+      }
     })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("Producto actualizado", data);
-      navigate("/productostabla");
-    })
-    .catch((error) => console.error("Error al actualizar", error));
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Producto actualizado", data);
+        navigate("/productostabla");
+      })
+      .catch((error) => console.error("Error al actualizar", error));
   };
 
-  
+
 
   return (
     <div>
@@ -120,7 +120,7 @@ const ModificarProducto = () => {
             onChange={(e) => setNombre(e.target.value)}
             required
           />
-          
+
           <label htmlFor="precio">Precio</label>
           <input
             type="number"

@@ -17,7 +17,7 @@ const Signup = () => {
 
 
     const validateForm = () => {
-        if (!correo || !nombre || !apellido || !dni || !password ) {
+        if (!correo || !nombre || !apellido || !dni || !password) {
             setError("Todos los campos son obligatorios");
             return false;
         }

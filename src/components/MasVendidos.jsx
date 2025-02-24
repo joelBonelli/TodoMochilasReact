@@ -11,13 +11,13 @@ const MasVendidos = () => {
   const [productosMasCaros, setProductosMasCaros] = useState([]);
 
   useEffect(() => {
-      fetch("http://localhost:8888/productos")
-      .then( res => res.json())
-      .then( productos => {
+    fetch("http://localhost:8888/productos")
+      .then(res => res.json())
+      .then(productos => {
         // Ordena los productos por el precio ascendente
         const productosOrdenados = productos
-        .sort((a, b) => b.precio_mochila - a.precio_mochila)
-        .slice(0,3);
+          .sort((a, b) => b.precio_mochila - a.precio_mochila)
+          .slice(0, 3);
         setProductosMasCaros(productosOrdenados);
       })
       .catch(error => console.error('Error con el fetc', error));

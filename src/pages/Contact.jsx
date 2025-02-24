@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
@@ -32,8 +32,8 @@ const Contact = () => {
     e.preventDefault();
     let formErrors = {};
 
-     // Validaciones
-     if (!formData.nombre || /\d/.test(formData.nombre)) {
+    // Validaciones
+    if (!formData.nombre || /\d/.test(formData.nombre)) {
       formErrors.nombre = "El nombre no puede estar vacío ni contener números.";
     }
     if (!formData.apellido || /\d/.test(formData.apellido)) {
@@ -54,15 +54,15 @@ const Contact = () => {
 
     setErrors(formErrors);
 
- // Si no hay errores, enviar el formulario
- if (Object.keys(formErrors).length === 0) {
-  alert("Formulario enviado correctamente!"); // Mostrar mensaje de éxito
+    // Si no hay errores, enviar el formulario
+    if (Object.keys(formErrors).length === 0) {
+      alert("Formulario enviado correctamente!"); // Mostrar mensaje de éxito
 
-  setTimeout(() => {
-    navigate("/"); // Redirigir a la página principal después del alert
-  }, 2000);
-}
-};
+      setTimeout(() => {
+        navigate("/"); // Redirigir a la página principal después del alert
+      }, 2000);
+    }
+  };
 
   return (
     <div>

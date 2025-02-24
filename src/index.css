@@ -66,30 +66,30 @@ h4 {
 
 /* HEADER */
 
-header{
+header {
   background-color: black;
   padding: 2rem 0 2rem 0;
 }
 
-header p{
+header p {
   margin: 0;
   color: white;
   font-size: 5rem;
 }
 
-header .contenedor{
+header .contenedor {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-header .navegacion a{
+header .navegacion a {
   margin-right: 3rem;
   font-size: 2rem;
   color: white;
 }
 
-.span-header{
+.span-header {
   color: orange;
   font-weight: bold;
 }
@@ -119,15 +119,24 @@ header .navegacion a{
 
 /* FORMULARIO */
 
-.subtitulo{
+
+
+.error {
+  background-color: red;
+  padding: 1rem;
+  font-weight: bold;
+
+}
+
+.subtitulo {
   color: black;
   text-transform: uppercase;
 }
 
 .formulario p {
   font-size: 1.4rem;
-  color: grey;
-  margin: 2rem 0 0 0;
+  color: black;
+  text-transform: uppercase;
 }
 
 .formulario legend {
@@ -169,11 +178,11 @@ header .navegacion a{
 }
 
 
-.formulario .sublimado .similitud input{
+.formulario .sublimado .similitud input {
   margin: 0;
 }
 
-form .boton-amarillo{
+form .boton-amarillo {
   margin-top: 3rem;
   padding: 1rem;
   font-size: 2rem;
@@ -181,41 +190,41 @@ form .boton-amarillo{
   background-color: orange;
   text-transform: uppercase;
   font-weight: bold;
-  
+
 }
 
 /* INDEX */
 
-.titulo{
+.titulo {
   font-size: 6rem;
 }
 
-.titulo-icono{
+.titulo-icono {
   color: black;
 }
 
-.anuncio-foto{
+.anuncio-foto {
   display: block;
   width: 100%;
 }
 
-.iconos-conocenos{
+.iconos-conocenos {
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.icono{
+.icono {
   text-align: center;
 }
 
-.icono h2{
+.icono h2 {
   text-transform: uppercase;
   font-weight: bold;
-  
+
 }
 
-.contenedor-anuncios{
+.contenedor-anuncios {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(3, 1fr);
@@ -226,25 +235,30 @@ form .boton-amarillo{
   border: 1px solid #404040;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Espacia los elementos verticalmente */
+  justify-content: space-between;
+  /* Espacia los elementos verticalmente */
   padding: 1rem;
   text-align: center;
-  height: 100%; /* Asegura que el anuncio ocupe todo el espacio disponible */
+  height: 100%;
+  /* Asegura que el anuncio ocupe todo el espacio disponible */
 }
 
 .contenido-anuncio {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra los elementos horizontalmente */
-  justify-content: space-between; /* Espacia los elementos verticalmente */
-  flex: 1; /* Hace que el contenedor ocupe todo el espacio disponible */
+  align-items: center;
+  /* Centra los elementos horizontalmente */
+  justify-content: space-between;
+  /* Espacia los elementos verticalmente */
+  flex: 1;
+  /* Hace que el contenedor ocupe todo el espacio disponible */
 }
 
-.anuncio .contenido-anuncio{
+.anuncio .contenido-anuncio {
   padding: 2rem;
 }
 
-.precio{
+.precio {
   font-weight: 700;
   font-size: 3rem;
   text-align: center;
@@ -261,10 +275,11 @@ form .boton-amarillo{
   padding: 1rem;
   display: block;
   text-align: center;
-  width: 100%; /* Hace que el botón ocupe todo el ancho del contenedor */
+  width: 100%;
+  /* Hace que el botón ocupe todo el ancho del contenedor */
 }
 
-.seccion-imagen{
+.seccion-imagen {
   background-image: url(/src/assets/images/Mochila-banner.png);
   background-position: 50%;
   background-size: cover;
@@ -274,13 +289,14 @@ form .boton-amarillo{
   flex-direction: column;
 }
 
-.seccion-imagen p, h2{
+.seccion-imagen p,
+h2 {
   color: white;
   text-transform: uppercases;
   font-size: 3.5rem;
 }
 
-.boton-verde{
+.boton-verde {
   margin-top: 3rem;
   border: none;
   text-align: center;
@@ -293,121 +309,123 @@ form .boton-amarillo{
   text-transform: uppercase;
 }
 
-.centrado{
+.centrado {
   display: flex;
   justify-content: center;
 }
 
-.centrado .boton-verde{
+.centrado .boton-verde {
   padding: 1.5rem 5rem;
 }
 
-.txt-precios{
+.txt-precios {
   text-align: center;
 }
 
-.precios{
+.precios {
   display: grid;
   gap: 5rem;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.lista{
+.lista {
   background-color: white;
   border: 1px solid;
 }
 
-.lista ul{
+.lista ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.lista li:nth-child(odd){
+.lista li:nth-child(odd) {
   background-color: #eee;
 }
 
-.articulos li{
+.articulos li {
   padding: 1rem;
   text-transform: capitalize;
 }
 
-.articulo{
+.articulo {
   display: flex;
   justify-content: space-between;
 }
 
-.articulo-nombre{
+.articulo-nombre {
   font-weight: 700;
   text-transform: capitalize;
 }
 
-.articulo-precio{
+.articulo-precio {
   color: orange;
   font-weight: bold;
 }
 
 .username {
-  color: white; /* Asegúrate de que el color no sea el mismo que el fondo */
+  color: white;
+  /* Asegúrate de que el color no sea el mismo que el fondo */
   font-size: 16px;
-  display: inline-block; /* Asegúrate de que el elemento sea visible */
+  display: inline-block;
+  /* Asegúrate de que el elemento sea visible */
   color: red;
 }
 
 /* EMPRESA */
 
-.empresa-contenido{
+.empresa-contenido {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(2, 1fr);
 }
 
-.comentarios{
+.comentarios {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(3, 1fr);
 }
 
-.comentario{
+.comentario {
   background-color: orange;
   border-radius: 2rem;
   font-size: 3rem;
   padding: 2rem;
 }
 
-.comentario p{
+.comentario p {
   color: white;
 }
 
-.nombre{
+.nombre {
   display: flex;
   align-items: center;
-  justify-content: right;  
+  justify-content: right;
 }
 
 
 /* GALERIA */
 
-.galeria{
+.galeria {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(3, 1fr);
 }
 
-.producto{
+.producto {
   background-color: #eee;
   margin: 0 2rem;
   padding: 1rem;
   text-align: center;
 }
 
-.producto-nombre{
+.producto-nombre {
   font-size: 2.7rem;
   text-transform: uppercase;
   margin: 3rem 0 0 0;
 }
 
-.producto-precio{
+.producto-precio {
   font-size: 3.5rem;
   font-weight: bold;
   color: orange;
@@ -417,7 +435,7 @@ form .boton-amarillo{
 
 /* PRODUCTO */
 
-.descripcion{
+.descripcion {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(2, 1fr);
@@ -425,7 +443,8 @@ form .boton-amarillo{
 
 .login-icon {
   margin-left: 20px;
-  color: #333; /* Color del ícono */
+  color: #333;
+  /* Color del ícono */
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -434,17 +453,18 @@ form .boton-amarillo{
   cursor: pointer;
 }
 
-.login-text{
+.login-text {
   margin-left: 10px;
   color: #ff9900;
 }
 
 .login-icon:hover {
-  color: #ff9900; /* Color al pasar el mouse */
+  color: #ff9900;
+  /* Color al pasar el mouse */
 }
 
 
-.iconos-sesion-cart{
+.iconos-sesion-cart {
   display: flex;
   gap: 2rem;
   align-items: center;
@@ -455,19 +475,26 @@ form .boton-amarillo{
 
 /*MEDIA QUERIE*/
 
-@media screen and (max-width: 767px){
-  header .contenedor, footer .contenedor{
-      display: block;
-      text-align: center;
-  }
-  .iconos-conocenos, .galeria, .contenedor-anuncios, .empresa-contenido
-  , .comentarios, .descripcion{
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(1, 1fr);
+@media screen and (max-width: 767px) {
+
+  header .contenedor,
+  footer .contenedor {
+    display: block;
+    text-align: center;
   }
 
-  .iconos-sesion-cart{
+  .iconos-conocenos,
+  .galeria,
+  .contenedor-anuncios,
+  .empresa-contenido,
+  .comentarios,
+  .descripcion {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .iconos-sesion-cart {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
@@ -478,6 +505,7 @@ form .boton-amarillo{
 .admin-panel main {
   padding: 4rem 0;
 }
+
 .admin-panel .formulario {
   margin-bottom: 4rem;
 }
@@ -493,7 +521,8 @@ form .boton-amarillo{
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 10px;
-  width: 45%; /* Ajusta según el diseño */
+  width: 45%;
+  /* Ajusta según el diseño */
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;

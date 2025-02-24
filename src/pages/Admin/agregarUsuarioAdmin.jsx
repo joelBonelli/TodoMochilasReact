@@ -41,7 +41,7 @@ const AgregarUsuarioAdmin = () => {
     e.preventDefault();
 
     if (!validateForm()) return;
-    
+
 
     const formData = new FormData();
     formData.append('correo', correo);
@@ -50,10 +50,10 @@ const AgregarUsuarioAdmin = () => {
     formData.append('dni', dni);
     formData.append('password', password);
     formData.append('rol', rol); // Convertimos a número
-    formData.append('legajo', legajo);  
+    formData.append('legajo', legajo);
 
     try {
-    console.log(Array.from(formData.entries()));
+      console.log(Array.from(formData.entries()));
 
       const response = await fetch(`http://localhost:8888/usuarios/create`, {
         method: "POST",

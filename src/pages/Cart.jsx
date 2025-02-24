@@ -14,14 +14,14 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
-   console.log(carrito);
-    
+  console.log(carrito);
+
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, [user, navigate]);
-  
+
 
   const agruparProductos = (productos) => {
     const productosAgrupados = productos.reduce((acc, producto) => {
@@ -29,7 +29,7 @@ const Cart = () => {
       if (existente) {
         existente.cantidad += producto.cantidad;
       } else {
-        acc.push({...producto });
+        acc.push({ ...producto });
       }
       return acc;
     }, []);
@@ -39,8 +39,8 @@ const Cart = () => {
   const productosAgrupados = agruparProductos(carrito);
 
   console.log(carrito);
-  
- //Función para verificar el stock de todos los productos en el carrito
+
+  //Función para verificar el stock de todos los productos en el carrito
   const verificarStock = async () => {
     const productosComprados = [];
     productosAgrupados.forEach(element => {
@@ -48,16 +48,16 @@ const Cart = () => {
         alert("Stock insuficiente, vuelva a elejir una cantidad");
         return;
       }
-      productosComprados.push({ id: element.id_mochila, cantidad: element.cantidad});
+      productosComprados.push({ id: element.id_mochila, cantidad: element.cantidad });
     });
     finalizarCompra(productosComprados);
   };
-  
-  
+
+
   const finalizarCompra = async (productos) => {
     try {
       // Ejecutar todas las llamdas en paralelo
-      const responses = await Promise.all(productos.map((producto) => 
+      const responses = await Promise.all(productos.map((producto) =>
         fetch(`http://localhost:8888/productos/${producto.id}/restar-stock`, {
           method: "PUT",
           headers: {
@@ -81,9 +81,9 @@ const Cart = () => {
       localStorage.removeItem("cart");
       alert("Compra completada. ¡Gracias por tu compra!");
       window.location.reload();
-    } catch(error) {
+    } catch (error) {
       console.error("Error de conexion con el servidor", error);
-    }    
+    }
   };
 
 
@@ -124,7 +124,7 @@ const Cart = () => {
               </div>
             ))}
 
-<div className="centrado">
+            <div className="centrado">
               <button
                 className="boton-verde"
                 onClick={verificarStock}
@@ -155,10 +155,10 @@ export default Cart;
 
 
 // const removeFromCart = (productId) => {
-  //   //console.log(productId);
-  //   // Filtrar el carrito para eliminar el producto por ID
-  //   const updatedCart = carrito.filter((product) => product.id_mochila !== productId);
-  //   // Actualizar el carrito en localStorage
-  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
-  //   window.location.reload();
-  // }
+//   //console.log(productId);
+//   // Filtrar el carrito para eliminar el producto por ID
+//   const updatedCart = carrito.filter((product) => product.id_mochila !== productId);
+//   // Actualizar el carrito en localStorage
+//   localStorage.setItem("cart", JSON.stringify(updatedCart));
+//   window.location.reload();
+// }

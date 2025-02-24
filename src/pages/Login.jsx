@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import "../LoginForm.css"; 
+import "../LoginForm.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -16,39 +16,39 @@ const LoginForm = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/admin";
 
-  
-useEffect(() => {
-  if (user) {
-    redirectUser(user);
+
+  useEffect(() => {
+    if (user) {
+      redirectUser(user);
+    }
+  }, [user]);
+
+  const redirectUser = (user) => {
+    if (user.nivel_usuario === 3) {
+      //navigate("/admin");
+      navigate(from, { replace: true });
+    } else {
+      navigate("/");
+    }
   }
-}, [user]);
 
-const redirectUser = (user) => {
-  if (user.nivel_usuario === 3) {
-    //navigate("/admin");
-    navigate(from, { replace: true });
-  } else {
-    navigate("/");
-  }
-}
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      // Llamamos a la función login del contexto, que se encarga de la solicitud
+      const data = await login(email, password);
+      console.log("desde logins:", data);
+      redirectUser(data);
+    } catch (error) {
+      setErrorMessage(error.message || "Hubo un problema al iniciar sesión");
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    // Llamamos a la función login del contexto, que se encarga de la solicitud
-    const data = await login(email, password);
-    console.log("desde logins:", data);
-    redirectUser(data);
-  } catch (error) {
-    setErrorMessage(error.message || "Hubo un problema al iniciar sesión");
+      // Recargar la página después de 3 segundos
+      setTimeout(() => {
+        window.location.reload();
+      }, 4000);
+    }
 
-    // Recargar la página después de 3 segundos
-    setTimeout(() => {
-      window.location.reload();
-    }, 4000); 
-  }     
-     
-};
+  };
 
   return (
     <div>
