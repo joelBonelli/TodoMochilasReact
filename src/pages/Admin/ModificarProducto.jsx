@@ -30,6 +30,7 @@ const ModificarProducto = () => {
         setPrecio(productoData.precio_mochila);
         setImagenPreview(productoData.foto_mochila);
         setDescripcion(productoData.descripcion_mochila);
+        
         console.log("useEFFEc", imagen);
         console.log("useEFFEc", nombre);
         console.log("use effec image previa", imagenPreview);
