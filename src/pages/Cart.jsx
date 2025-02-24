@@ -4,12 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-
-// const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
-// const obtenerImagen = (nombreArchivo) => {
-//   return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
-// };
-
 const Cart = () => {
 
   const carrito = JSON.parse(localStorage.getItem("cart")) || [];
@@ -20,59 +14,78 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
+   console.log(carrito);
     
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, [user, navigate]);
+  
 
- // Función para verificar el stock de todos los productos en el carrito
- const verificarStock = async () => {
-  if (carrito.length === 0) {
-    setError("El carrito está vacío.");
-    return;
-  }
-
-  setLoading(true);
-  setError("");
-
-  try {
-    console.log("Verificando y descontando stock para los productos:", carrito);
-
-    for (const product of carrito) {
-      const response = await fetch(`http://localhost:8888/productos/${product.id_mochila}/restar-stock`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({ cantidad: product.cantidad }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Error en la solicitud: ${response.status}`);
+  const agruparProductos = (productos) => {
+    const productosAgrupados = productos.reduce((acc, producto) => {
+      const existente = acc.find((p) => p.id_mochila === producto.id_mochila);
+      if (existente) {
+        existente.cantidad += producto.cantidad;
+      } else {
+        acc.push({...producto });
       }
-    }
-
-    finalizarCompra(); // Solo se ejecuta si todos los productos pudieron restar stock
-  } catch (error) {
-    console.error("Error al verificar y restar stock:", error);
-    setError(`Hubo un problema al verificar el stock: ${error.message}`);
-  } finally {
-    setLoading(false);
+      return acc;
+    }, []);
+    return productosAgrupados;
   }
-};
 
-  const finalizarCompra = () => {
-    // Prevenir la acción por defecto del botón si está dentro de un formulario
-   // e.preventDefault();
-    // Limpiar el carrito en localStorage
-    localStorage.removeItem("cart");
-    window.location.reload();
-    alert("Compra completada. ¡Gracias por tu compra!");
+  const productosAgrupados = agruparProductos(carrito);
+
+  console.log(carrito);
+  
+ //Función para verificar el stock de todos los productos en el carrito
+  const verificarStock = async () => {
+    const productosComprados = [];
+    productosAgrupados.forEach(element => {
+      if (element.cantidad > element.stock_mochila) {
+        alert("Stock insuficiente, vuelva a elejir una cantidad");
+        return;
+      }
+      productosComprados.push({ id: element.id_mochila, cantidad: element.cantidad});
+    });
+    finalizarCompra(productosComprados);
   };
+  
+  
+  const finalizarCompra = async (productos) => {
+    try {
+      // Ejecutar todas las llamdas en paralelo
+      const responses = await Promise.all(productos.map((producto) => 
+        fetch(`http://localhost:8888/productos/${producto.id}/restar-stock`, {
+          method: "PUT",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ cantidad: producto.cantidad }),
+        })
+      ));
+
+      // Verificar si alguna peticion fallo
+      const errors = responses.filter(response => !response.ok);
+      if (errors.length > 0) {
+        setError("Problemas con el stock");
+        return;
+      }
+
+      // Si las peticiones son exitosas
+      console.log("compra hecha");
+      // Limpiar el carrito en localStorage
+      localStorage.removeItem("cart");
+      alert("Compra completada. ¡Gracias por tu compra!");
+      window.location.reload();
+    } catch(error) {
+      console.error("Error de conexion con el servidor", error);
+    }    
+  };
+
 
   return (
     <div>
@@ -81,11 +94,13 @@ const Cart = () => {
       <main className="contenedor">
         <h1>Carrito de Compras</h1>
 
-        {carrito.length === 0 ? (
+        {/* {carrito.length === 0 ? ( */}
+        {productosAgrupados.length === 0 ? (
           <p>Tu carrito está vacío.</p>
         ) : (
           <div className="contenedor">
-            {carrito.map((product) => (
+            {/* {carrito.map((product) => ( */}
+            {productosAgrupados.map((product) => (
               <div key={product.id_mochila} className="producto-carrito">
                 <img
                   src={product.foto_mochila}

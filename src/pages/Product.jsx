@@ -1,26 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 
-// const imagenes = import.meta.glob("../assets/images/*.jpg", { eager: true });
-// const obtenerImagen = (nombreArchivo) => {
-//   return imagenes[`../assets/images/${nombreArchivo}`]?.default || imagenes[`../assets/images/default.jpg`]?.default;
-// };
 
 const Product = () => {
   const { id } = useParams(); // Obtener el ID de la URL
   const [producto, setProducto] = useState(null);
   const { addToCart } = useContext(AuthContext);
-
-  //console.log(id);
-  
-  // const productosGuardados =
-  //   JSON.parse(localStorage.getItem("productos")) || [];
-  // const producto = productosGuardados.find((item) => item.id === parseInt(id));
-
+  const navigate = useNavigate();
 
    useEffect(() => {
         fetch(`http://localhost:8888/productos/${id}`)
@@ -35,9 +25,7 @@ const Product = () => {
           }
         })
         .catch(error => console.error('Error con el fetc', error));
-    }, [id])
-
-
+    }, [id]);
     
   const handleAddToCart = (e) => {
     e.preventDefault(); // Evitar que el formulario se envíe y recargue la página
@@ -47,25 +35,20 @@ const Product = () => {
       alert("Por favor, ingresa una cantidad válida.");
       return;
     }
-
-    // Obtener el carrito actual desde localStorage
-    //const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log(producto.stock_mochila);
+    if (quantity > producto.stock_mochila) {
+      alert("Stock insuficiente");
+      return;
+    }
 
     // Crear un objeto de producto con los productos seleccionados
     const newProduct = {
       ...producto,
       cantidad: quantity,
     };
-
     addToCart(newProduct);
-
-    // // Añade el producto al carrito
-    // const updatedCart = [...cart, newProduct];
-
-    // // Guardar el carrito actualizado en localStorage
-    // localStorage.setItem("cart", JSON.stringify(updatedCart)); 
-
     alert(`${producto.nombre_mochila} ha sido añadido al carrito.`);
+    navigate("/gallery");
   };
 
   if (!producto) {
@@ -79,7 +62,6 @@ const Product = () => {
       <main className="contenedor" >
         <h1>{producto.nombre_mochila}</h1>
         <div className="descripcion">
-          {/* <img src={obtenerImagen(producto.foto_mochila)} alt={producto.nombre_mochila} /> */}
           <img src={producto.foto_mochila} alt={producto.nombre_mochila} />
 
           <div className="mochila-descripcion">
