@@ -14,11 +14,11 @@ const ProductosTable = () => {
                 "Authorization": `Bearer ${token}`
             }
         })
-        .then( res => res.json())
-        .then( productos => {
-            setProductos(productos);
-        })
-        .catch(error => console.error('Error con el fetc', error));
+            .then(res => res.json())
+            .then(productos => {
+                setProductos(productos);
+            })
+            .catch(error => console.error('Error con el fetc', error));
     }
 
     useEffect(() => {
@@ -35,24 +35,24 @@ const ProductosTable = () => {
                     "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
                 }
             })
-            .then( (res) => {
-                if (!res.ok) {
-                    throw new Error("Error al eliminar el producto");
-                }
-                alert("Producto eliminado con éxito");
-                fetchProductos();
-                //navigate("/productostabla");
-            })
-            .catch((error) => {
-                alert("No se pudo eliminar el producto");
-            });
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error("Error al eliminar el producto");
+                    }
+                    alert("Producto eliminado con éxito");
+                    fetchProductos();
+                    //navigate("/productostabla");
+                })
+                .catch((error) => {
+                    alert("No se pudo eliminar el producto");
+                });
         }
     };
-    
+
 
     // Función para redirigir a la vista de modificar
     const modificarProducto = (id) => {
-        navigate(`/modificar-producto/${id}`); 
+        navigate(`/modificar-producto/${id}`);
     };
 
     return (

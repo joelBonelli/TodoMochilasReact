@@ -12,21 +12,21 @@ const Product = () => {
   const { addToCart } = useContext(AuthContext);
   const navigate = useNavigate();
 
-   useEffect(() => {
-        fetch(`http://localhost:8888/productos/${id}`)
-        .then( res => res.json())
-        .then( producto => {
-          console.log("datos recibidos", producto);
+  useEffect(() => {
+    fetch(`http://localhost:8888/productos/${id}`)
+      .then(res => res.json())
+      .then(producto => {
+        console.log("datos recibidos", producto);
 
-          if (Array.isArray(producto) && producto.length > 0) {
-            setProducto(producto[0]);
-          } else {
-            setProducto(null);
-          }
-        })
-        .catch(error => console.error('Error con el fetc', error));
-    }, [id]);
-    
+        if (Array.isArray(producto) && producto.length > 0) {
+          setProducto(producto[0]);
+        } else {
+          setProducto(null);
+        }
+      })
+      .catch(error => console.error('Error con el fetc', error));
+  }, [id]);
+
   const handleAddToCart = (e) => {
     e.preventDefault(); // Evitar que el formulario se envíe y recargue la página
     const quantity = parseInt(e.target.cantidad.value);
@@ -58,7 +58,7 @@ const Product = () => {
   return (
     <div>
       <Header />
-    
+
       <main className="contenedor" >
         <h1>{producto.nombre_mochila}</h1>
         <div className="descripcion">
@@ -70,7 +70,7 @@ const Product = () => {
             <p>${producto.precio_mochila}</p>
 
             <form action="#" className="formulario" onSubmit={handleAddToCart}>
-              
+
               <input
                 type="number"
                 id="cantidad"

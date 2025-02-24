@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 
 // Importa las páginas de clientes
 import Home from './pages/Home';
@@ -26,20 +26,20 @@ import ModificarUsuario from './pages/Admin/ModificarUsuario';
 function App() {
   return (
     <Router>
-    <AuthProvider>
-      <Routes>
+      <AuthProvider>
+        <Routes>
 
-        {/*Rutas de clientes*/}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cart" element={<Cart/>} />
-        <Route path="/signup" element={<Signup />} />
+          {/*Rutas de clientes*/}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/signup" element={<Signup />} />
 
-{/*rutas protegidas*/}
+          {/*rutas protegidas*/}
           <Route path="/admin" element={<RutasProtegidas element={<AdminPanel />} />} />
           <Route path="/productostabla" element={<RutasProtegidas element={<ProductosTable />} />} />
           <Route path="/agregar-producto" element={<RutasProtegidas element={<AgregarProducto />} />} />
@@ -48,8 +48,8 @@ function App() {
           <Route path="/usuariostabla" element={<RutasProtegidas element={<UsuariosTabla />} />} />
           <Route path="/modificar-usuario/:id" element={<RutasProtegidas element={<ModificarUsuario />} />} />
         </Routes>
-    </AuthProvider>
-      </Router>
+      </AuthProvider>
+    </Router>
   );
 }
 

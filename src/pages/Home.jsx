@@ -5,7 +5,7 @@ import IconosConocenos from "../components/IconosConocenos";
 import BannerHome from "../components/BannerHome";
 import MasVendidos from "../components/MasVendidos";
 
-const Home = () => {  
+const Home = () => {
 
   return (
     <div>

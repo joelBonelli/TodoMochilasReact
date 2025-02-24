@@ -1,8 +1,8 @@
 import React from 'react'
 
 const IconosConocenos = () => {
-  return (
-    <div className="iconos-conocenos">
+    return (
+        <div className="iconos-conocenos">
 
             <div className="icono">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-receipt-2" width="84"
@@ -54,7 +54,7 @@ const IconosConocenos = () => {
             </div>
 
         </div>
-  )
+    )
 }
 
 export default IconosConocenos

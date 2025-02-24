@@ -12,7 +12,7 @@ const ModificarUsuario = () => {
   const [apellido, setApellido] = useState("");
   const [dni, setDNI] = useState("");
   const [correo, setCorreo] = useState("");
- 
+
   const [rol, setRol] = useState("");
   const [legajo, setLegajo] = useState("");
   const [error, setError] = useState("");
@@ -47,7 +47,7 @@ const ModificarUsuario = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!nombre.trim() || !apellido.trim() || !dni || !correo.trim() ||  !rol || !legajo) {
+    if (!nombre.trim() || !apellido.trim() || !dni || !correo.trim() || !rol || !legajo) {
       setError("Todos los campos son obligatorios");
       return;
     }

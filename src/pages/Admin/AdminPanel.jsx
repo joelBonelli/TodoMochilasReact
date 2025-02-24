@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import agregarProductoImg from "../../assets/images/agregar-producto.png";
 import agregarUsuarioImg from "../../assets/images/agregar-usuario.png";
 
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
   const navigate = useNavigate(); // Hook de navegación
