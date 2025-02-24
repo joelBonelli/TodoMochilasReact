@@ -6,9 +6,7 @@ import Footer from "../../components/Footer";
 const AgregarProducto = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  console.log("token extraido en agregar productos", localStorage.getItem("token"));
-
-
+  
   // Estado para manejar los campos del formulario
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
@@ -54,7 +52,6 @@ const AgregarProducto = () => {
       const result = await response.json();
 
       if (response.ok) {
-        console.log("Producto creado", formData);
         navigate("/productostabla");
 
       } else {

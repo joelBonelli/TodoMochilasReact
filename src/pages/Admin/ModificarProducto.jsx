@@ -6,8 +6,6 @@ import Footer from "../../components/Footer";
 
 const ModificarProducto = () => {
   const token = localStorage.getItem("token");
-  console.log("token extraido en agregar productos", localStorage.getItem("token"));
-
   const { id } = useParams();
   const navigate = useNavigate();
   const [producto, setProducto] = useState(null);
@@ -30,9 +28,6 @@ const ModificarProducto = () => {
           setPrecio(productoData.precio_mochila);
           setImagenPreview(productoData.foto_mochila);
           setDescripcion(productoData.descripcion_mochila);
-          console.log("useEFFEc", imagen);
-          console.log("useEFFEc", nombre);
-          console.log("use effec image previa", imagenPreview);
         } else {
           setProducto(null);
         }
@@ -45,7 +40,6 @@ const ModificarProducto = () => {
     if (file) {
       setImagen(file);
       setImagenPreview(URL.createObjectURL(file));
-      console.log("HANDLE-IMAGE-CHANGE", file);
     }
   };
 
@@ -82,13 +76,6 @@ const ModificarProducto = () => {
       formData.append("imagenActual", nombreArchivo);
     }
 
-    console.log([...formData.entries()]); // Para verificar qué datos está enviando
-    console.log("Nombre:", nombre);
-    console.log("Precio:", precio);
-    console.log("Imagen:", imagen);
-    console.log("Descripción:", descripcion);
-
-
     fetch(`http://localhost:8888/productos/actualizar/${id}`, {
       method: "PUT",
       body: formData,
@@ -98,7 +85,6 @@ const ModificarProducto = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Producto actualizado", data);
         navigate("/productostabla");
       })
       .catch((error) => console.error("Error al actualizar", error));

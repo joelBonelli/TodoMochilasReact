@@ -14,8 +14,6 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
-  console.log(carrito);
-
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -38,18 +36,17 @@ const Cart = () => {
 
   const productosAgrupados = agruparProductos(carrito);
 
-  console.log(carrito);
-
   //Función para verificar el stock de todos los productos en el carrito
   const verificarStock = async () => {
     const productosComprados = [];
-    productosAgrupados.forEach(element => {
+
+    for(const element of productosAgrupados){
       if (element.cantidad > element.stock_mochila) {
-        alert("Stock insuficiente, vuelva a elejir una cantidad");
+        alert(`Stock insuficiente de: ${element.nombre_mochila}. Vuelva a elejir una cantidad`);
         return;
       }
       productosComprados.push({ id: element.id_mochila, cantidad: element.cantidad });
-    });
+    }
     finalizarCompra(productosComprados);
   };
 
@@ -74,9 +71,6 @@ const Cart = () => {
         setError("Problemas con el stock");
         return;
       }
-
-      // Si las peticiones son exitosas
-      console.log("compra hecha");
       // Limpiar el carrito en localStorage
       localStorage.removeItem("cart");
       alert("Compra completada. ¡Gracias por tu compra!");
@@ -94,12 +88,10 @@ const Cart = () => {
       <main className="contenedor">
         <h1>Carrito de Compras</h1>
 
-        {/* {carrito.length === 0 ? ( */}
         {productosAgrupados.length === 0 ? (
           <p>Tu carrito está vacío.</p>
         ) : (
           <div className="contenedor">
-            {/* {carrito.map((product) => ( */}
             {productosAgrupados.map((product) => (
               <div key={product.id_mochila} className="producto-carrito">
                 <img
@@ -143,22 +135,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-
-
-
-
-
-
-
-
-
-
-// const removeFromCart = (productId) => {
-//   //console.log(productId);
-//   // Filtrar el carrito para eliminar el producto por ID
-//   const updatedCart = carrito.filter((product) => product.id_mochila !== productId);
-//   // Actualizar el carrito en localStorage
-//   localStorage.setItem("cart", JSON.stringify(updatedCart));
-//   window.location.reload();
-// }

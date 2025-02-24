@@ -414,22 +414,26 @@ h2 {
 
 .producto {
   background-color: #eee;
-  margin: 0 2rem;
+  /* margin: 0 2rem; */
   padding: 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .producto-nombre {
   font-size: 2.7rem;
   text-transform: uppercase;
-  margin: 3rem 0 0 0;
+  /* margin: 3rem 0 0 0; */
 }
 
 .producto-precio {
   font-size: 3.5rem;
   font-weight: bold;
   color: orange;
-  margin: 0;
+  /* margin: 0; */
 }
 
 

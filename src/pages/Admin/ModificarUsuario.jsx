@@ -26,8 +26,6 @@ const ModificarUsuario = () => {
         if (usuario) {
           const usuarioData = Array.isArray(usuario) ? usuario[0] : usuario;
 
-
-
           setNombre(usuarioData.nombre_usuario);
           setApellido(usuarioData.apellido_usuario);
           setDNI(usuarioData.dni_usuario);
@@ -70,7 +68,6 @@ const ModificarUsuario = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Producto actualizado", data);
         navigate("/usuariosTabla");
       })
       .catch((error) => console.error("Error:", error));

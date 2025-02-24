@@ -25,7 +25,6 @@ const LoginForm = () => {
 
   const redirectUser = (user) => {
     if (user.nivel_usuario === 3) {
-      //navigate("/admin");
       navigate(from, { replace: true });
     } else {
       navigate("/");
@@ -37,7 +36,6 @@ const LoginForm = () => {
     try {
       // Llamamos a la función login del contexto, que se encarga de la solicitud
       const data = await login(email, password);
-      console.log("desde logins:", data);
       redirectUser(data);
     } catch (error) {
       setErrorMessage(error.message || "Hubo un problema al iniciar sesión");

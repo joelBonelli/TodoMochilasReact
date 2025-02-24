@@ -53,8 +53,6 @@ const AgregarUsuarioAdmin = () => {
     formData.append('legajo', legajo);
 
     try {
-      console.log(Array.from(formData.entries()));
-
       const response = await fetch(`http://localhost:8888/usuarios/create`, {
         method: "POST",
         body: formData,
@@ -68,8 +66,6 @@ const AgregarUsuarioAdmin = () => {
         setError(result.message || "Error al crear el usuario");
         return;
       }
-
-      console.log("Usuario creado", formData);
       navigate("/usuariostabla");
 
     } catch (error) {

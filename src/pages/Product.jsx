@@ -10,6 +10,7 @@ const Product = () => {
   const { id } = useParams(); // Obtener el ID de la URL
   const [producto, setProducto] = useState(null);
   const { addToCart } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +30,11 @@ const Product = () => {
 
   const handleAddToCart = (e) => {
     e.preventDefault(); // Evitar que el formulario se envíe y recargue la página
+    
+    if (!user) {
+      alert("Debe iniciar sesión para continuar");
+      return;
+    }
     const quantity = parseInt(e.target.cantidad.value);
 
     if (!quantity || quantity <= 0) {

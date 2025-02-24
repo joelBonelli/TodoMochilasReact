@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedCart = JSON.parse(localStorage.getItem("cart"));
-    console.log("token desde el useEffect", token);
     if (token) {
       const isTokenExpired = checkTokenExpiration(token);
       if (isTokenExpired) {
@@ -52,31 +51,25 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log(email, password)
       const response = await fetch("http://localhost:8888/usuarios/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-        //credentials: "include",
       });
 
       if (response.ok) {
-        console.log("entre acá")
         const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
         setUser(data.user);
-        console.log("data Token: ", data.token);
-        console.log("data User: ", data.user);
         return data;
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || "Error Desconocido");
       }
     } catch (error) {
-      console.error("Error al iniciar sesión desde funcion login", error);
       throw error;
     }
   };

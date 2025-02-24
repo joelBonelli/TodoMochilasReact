@@ -41,7 +41,6 @@ const ProductosTable = () => {
                     }
                     alert("Producto eliminado con éxito");
                     fetchProductos();
-                    //navigate("/productostabla");
                 })
                 .catch((error) => {
                     alert("No se pudo eliminar el producto");
@@ -78,7 +77,6 @@ const ProductosTable = () => {
                                 <td>${producto.precio_mochila}</td>
                                 <td>
                                     <img
-                                        // src={obtenerImagen(producto.foto_mochila)}
                                         src={producto.foto_mochila}
                                         alt={producto.nombre_mochila}
                                         className="producto-imagen"
