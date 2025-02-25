@@ -17,7 +17,6 @@ const Product = () => {
     fetch(`http://localhost:8888/productos/${id}`)
       .then(res => res.json())
       .then(producto => {
-        console.log("datos recibidos", producto);
 
         if (Array.isArray(producto) && producto.length > 0) {
           setProducto(producto[0]);
@@ -41,7 +40,7 @@ const Product = () => {
       alert("Por favor, ingresa una cantidad válida.");
       return;
     }
-    console.log(producto.stock_mochila);
+    
     if (quantity > producto.stock_mochila) {
       alert("Stock insuficiente");
       return;
